@@ -2236,8 +2236,7 @@ class Patient_management extends MY_Controller {
                 LEFT JOIN regimen r ON r.id=p.current_regimen
                 LEFT JOIN patient_status ps ON ps.id=p.current_status
                 WHERE p.facility_code = '$facility_code'
-                AND p.patient_number_ccc != '' $filter
-                AND p.ccc_store_sp = '$store' ";
+                AND p.patient_number_ccc != '' $filter ";
 
         $query = $this->db->query($sql);
         $patients = $query->result_array();
