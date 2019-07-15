@@ -10860,82 +10860,26 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
 			</tr>
 			</thead>
 			<tbody>";
-        $row_string .= "</tbody></table>";
-        if ($json !== FALSE) {
-            $aColumns = array('patient_ccc_number', 'date_collected', 'test_date', 'result', 'justification');
-            $iDisplayStart = $this->input->get_post('iDisplayStart', true);
-            $iDisplayLength = $this->input->get_post('iDisplayLength', true);
-            $iSortCol_0 = $this->input->get_post('iSortCol_0', true);
-            $iSortingCols = $this->input->get_post('iSortingCols', true);
-            $sSearch = $this->input->get_post('sSearch', true);
-            $sEcho = $this->input->get_post('sEcho', true);
+ 
+            
+        $this->db->select('patient_ccc_number,date_collected, test_date,result,justification');          
+        $this->db->where('test_date >=', $start_date);
+        $this->db->where('test_date <=', $end_date);
+        $q = $this->db->get('patient_viral_load');
 
-            $count = 0;
-
-            // Paging
-            if (isset($iDisplayStart) && $iDisplayLength != '-1') {
-                $this->db->limit($this->db->escape_str($iDisplayLength), $this->db->escape_str($iDisplayStart));
-            }
-
-            // Ordering
-            if (isset($iSortCol_0)) {
-                for ($i = 0; $i < intval($iSortingCols); $i++) {
-                    $iSortCol = $this->input->get_post('iSortCol_' . $i, true);
-                    $bSortable = $this->input->get_post('bSortable_' . intval($iSortCol), true);
-                    $sSortDir = $this->input->get_post('sSortDir_' . $i, true);
-
-                    if ($bSortable == 'true') {
-                        $this->db->order_by($aColumns[intval($this->db->escape_str($iSortCol))], $this->db->escape_str($sSortDir));
-                    }
-                }
-            }
-            /*
-             * Filtering
-             * NOTE this does not match the built-in DataTables filtering which does it
-             * word by word on any field. It's possible to do here, but concerned about efficiency
-             * on very large tables, and MySQL's regex functionality is very limited
-             */
-            if (isset($sSearch) && !empty($sSearch)) {
-                for ($i = 0; $i < count($aColumns); $i++) {
-                    $bSearchable = $this->input->get_post('bSearchable_' . $i, true);
-
-                    // Individual column filtering
-                    if (isset($bSearchable) && $bSearchable == 'true') {
-                        $this->db->or_like($aColumns[$i], $this->db->escape_like_str($sSearch));
-                    }
-                }
-            }
-
-            $this->db->select('patient_ccc_number,date_collected, test_date,result,justification');          
-
-            $this->db->where('test_date >=', $start_date);
-            $this->db->where('test_date <=', $end_date);
-
-            $q = $this->db->get('patient_viral_load');
-            $rResult = $q;
-            // Data set length after filtering
-            $iFilteredTotal = count($rResult);
-            //Total number of drugs that are displayed
-            $iTotal = count($rResult);
-            // Output
-            $output = array('sEcho' => intval($sEcho), 'iTotalRecords' => $iTotal, 'iTotalDisplayRecords' => $iFilteredTotal, 'aaData' => array());
-
-            foreach ($rResult->result_array() as $aRow) {
-                $row = array();
-                $x = 0;
-                foreach ($aColumns as $col) {
-                    $x++;
-                    //Format soh
-                    $row[] = $aRow[$col];
-                }
-                $id = $aRow['id'];
-                $output['aaData'][] = $row;
-            }
-
-            echo json_encode($output);
-
-            die;
+        if($q->result_array()){
+        foreach ($q->result_array() as $res) {
+            $row_string.='<tr>';
+            $row_string.= '<td>'.$res['patient_ccc_number'].'</td>';
+            $row_string.= '<td>'.$res['date_collected'].'</td>';
+            $row_string.= '<td>'.$res['test_date'].'</td>';
+            $row_string.= '<td>'.$res['result'].'</td>';
+            $row_string.= '<td>'.$res['justification'].'</td>';
+            $row_string.='<tr/>';
         }
+    }
+                  
+        $row_string .= "</tbody></table>";
 
 
         $data['start_date'] = date('d-M-Y', strtotime($start_date));
