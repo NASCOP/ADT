@@ -1,5 +1,5 @@
 <div id="wrapperd">
-	
+			
 	<div id="patient_enrolled_content" class="full-content">
 		<?php $this->load->view("reports/reports_top_menus_v") ?>
 		<h4 style="text-align: center" id='report_title'>Patient Viral Load Results Between <span id="start_date"><?php echo date('d-M-Y',strtotime($start_date)); ?></span> to <span id="start_date"><?php echo date('d-M-Y',strtotime($end_date)); ?></span>  </h4>
@@ -10,33 +10,7 @@
 			</tr>
 		</table>
 		<div id="appointment_list">
-			<?php echo $dyn_table;?>
-
-
+		<?php echo $dyn_table;?>
 		</div>
 	</div>
-</div>	
-<script type="text/javascript">
-	$(function(){
-		$('.vl_results').dataTable( {
-			"bJQueryUI": true,
-			"sPaginationType": "full_numbers",
-			"sDom": '<"H"frT>t<"F"ip>',
-			"oTableTools": {
-				"sSwfPath": base_url+"scripts/datatable/copy_csv_xls_pdf.swf",
-				"aButtons": [ "copy", "print","xls","pdf" ]
-			},
-			"bProcessing": true,
-			"bServerSide": false,
-			"bAutoWidth" : false,
-			"bDeferRender" : true,
-			"bInfo" : true,
-			"bDestroy" : true,
-			"fnInitComplete": function() {
-				this.css("visibility", "visible");
-			}
-		});
-
-
-	})
-</script>
+</div>

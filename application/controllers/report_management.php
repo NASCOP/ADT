@@ -10843,59 +10843,58 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         $data['content_view'] = 'reports/differenciated_package_of_care_v';
         $this->load->view('template', $data);
     }
+public function get_viral_load_results($start_date = null,$end_date = null)
+        {
+            $start_date = date('Y-m-d', strtotime($start_date));
+            $end_date = date('Y-m-d', strtotime($end_date));
+            $overall_total = 0;
+        // print_r($start_date);die;
 
-    public function get_viral_load_results($start_date = null, $end_date = null, $json = FALSE) {
-        $start_date = date('Y-m-d', strtotime($start_date));
-        $end_date = date('Y-m-d', strtotime($end_date));
-        $overall_total = 0;
 
-        $row_string = "<table border='1' class='vl_results'>
-			<thead>
-			<tr>
-			<th>patient ccc number</th>
-			<th>Date Collected</th>
-			<th>Test Date</th>
-			<th>result</th>
-			<th>justification</th>
-			</tr>
-			</thead>
-			<tbody>";
- 
-            
-        $this->db->select('patient_ccc_number,date_collected, test_date,result,justification');          
-        $this->db->where('test_date >=', $start_date);
-        $this->db->where('test_date <=', $end_date);
-        $q = $this->db->get('patient_viral_load');
+            $sql = "select * from patient_viral_load where test_date >= '$start_date' and  test_date <= '$end_date'";
 
-        if($q->result_array()){
-        foreach ($q->result_array() as $res) {
-            $row_string.='<tr>';
-            $row_string.= '<td>'.$res['patient_ccc_number'].'</td>';
-            $row_string.= '<td>'.$res['date_collected'].'</td>';
-            $row_string.= '<td>'.$res['test_date'].'</td>';
-            $row_string.= '<td>'.$res['result'].'</td>';
-            $row_string.= '<td>'.$res['justification'].'</td>';
-            $row_string.='<tr/>';
+            $query = $this -> db -> query($sql, array($start_date, $end_date));
+            $results = $query -> result_array();
+
+            $row_string = "<table border='1' class='dataTables'>
+            <thead >
+            <tr>
+            <th>patient_ccc_number Duration</th>
+            <th>test_date</th>
+            <th>result</th>
+            <th>justification</th>
+            </tr>
+            </thead>
+            <tbody>";
+            foreach ($results as $result) {
+            // print_r($result['patient_ccc_number']);die;
+                $appointment_description = $result['appointment_description'];
+                $app_desc = str_ireplace(array(' ','(s)'), array('_',''), $appointment_description);
+                $total = $result['total'];
+                $overall_total += $total;
+                $action_link = anchor('report_management/getScheduledPatients/'.$result['from_date'].'/'.$result['to_date'].'/'.$from.'/'.$to.'/'.$app_desc, 'View Patients', array('target' => '_blank'));
+                $row_string .= '<tr><td>'.$result['patient_ccc_number'].'</td> <td>'.$result['test_date'].'</td><td>'.$result['result'].'</td><td>'.$result['justification'].'</td></tr>';
+            }
+            $row_string .= "</tbody></table>";
+
+
+            $data['start_date'] = date('d-M-Y', strtotime($start_date));
+            $data['end_date'] = date('d-M-Y', strtotime($end_date));
+            $data['dyn_table'] = $row_string;
+            $data['overall_total'] = count($results);
+            $data['title'] = "webADT | Reports";
+            $data['hide_side_menu'] = 1;
+            $data['banner_text'] = "Facility Reports";
+            $data['selected_report_type_link'] = "visiting_patient_report_row";
+            $data['selected_report_type'] = "Visiting Patients";
+            $data['report_title'] = "Patient Viral Load Results";
+            $data['facility_name'] = $this -> session -> userdata('facility_name');
+            $data['content_view'] = 'reports/patient_viralload_results_v';
+            $this -> load -> view('template', $data);
+
+
         }
-    }
-                  
-        $row_string .= "</tbody></table>";
 
-
-        $data['start_date'] = date('d-M-Y', strtotime($start_date));
-        $data['end_date'] = date('d-M-Y', strtotime($end_date));
-        $data['dyn_table'] = $row_string;
-        $data['overall_total'] = count($results);
-        $data['title'] = "webADT | Reports";
-        $data['hide_side_menu'] = 1;
-        $data['banner_text'] = "Facility Reports";
-        $data['selected_report_type_link'] = "visiting_patient_report_row";
-        $data['selected_report_type'] = "Visiting Patients";
-        $data['report_title'] = "Patient Viral Load Results";
-        $data['facility_name'] = $this->session->userdata('facility_name');
-        $data['content_view'] = 'reports/patient_viralload_results_v';
-        $this->load->view('template', $data);
-    }
 
     public function get_viral_loadsummary($start_date = null, $end_date = null) {
         $start_date = date('Y-m-d', strtotime($start_date));
