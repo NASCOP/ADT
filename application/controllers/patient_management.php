@@ -938,9 +938,11 @@ class Patient_management extends MY_Controller {
     public function update_visit() {
         $original_patient_number = $this->input->post("original_patient_number", TRUE);
         $patient_number = $this->input->post("patient_number", TRUE);
-        //update patient visits
-        $this->db->where('patient_id', $original_patient_number);
-        $this->db->update('patient_visit', array("patient_id" => $patient_number));
+        // //update patient visits
+        // $this->db->where('patient_id', $original_patient_number);
+        // $this->db->update('patient_visit', array("patient_id" => $patient_number));
+
+        $this->db->query('call change_ccc('.$original_patient_number .','.$patient_number.')');
         //update spouses
         $this->unmerge_spouse($original_patient_number);
         //update dependants
