@@ -4101,7 +4101,7 @@ GROUP BY  patient_id
     left join patient_status ps on ps.id = p.current_status
     left join regimen_service_type rs on rs.id = p.service 
     left join gender g on p.gender = g.id
-    WHERE dcl.start_date >='$start_date'  AND dcl.start_date < '$end_date' 
+    WHERE dcl.start_date BETWEEN '$start_date' AND '$end_date' 
     group by ccc_number
 	";
     // echo $sql;die;
