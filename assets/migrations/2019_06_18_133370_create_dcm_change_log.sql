@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS dcm_change_log//
 CREATE TABLE dcm_change_log (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  patient int(11) NOT NULL,
+  patient bigint(20) NOT NULL,
   status int(11) DEFAULT NULL,
   start_date date DEFAULT NULL,
   end_date date DEFAULT NULL,
