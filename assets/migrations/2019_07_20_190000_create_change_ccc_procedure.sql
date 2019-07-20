@@ -1,6 +1,12 @@
-DROP procedure change_ccc;
-DELIMITER $$
-CREATE PROCEDURE change_ccc (IN old_ccc varchar(40) ,IN new_ccc varchar(40)) 
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DELIMITER ;;
+
+DROP PROCEDURE IF EXISTS `change_ccc`;;
+CREATE PROCEDURE `change_ccc`(IN `old_ccc` varchar(40), IN `new_ccc` varchar(40))
 BEGIN
 update patient set patient_number_ccc = new_ccc where  patient_number_ccc = old_ccc;
 update clinic_appointment set patient = new_ccc where patient = old_ccc;
@@ -13,4 +19,6 @@ update drug_prescription set patient = new_ccc where patient = old_ccc;
 update dependants set parent = new_ccc where parent = old_ccc;
 update dependants set child = new_ccc where child = old_ccc;
 update dcm_change_log set patient =new_ccc where patient = old_ccc;
-END $$
+END;;
+
+DELIMITER ;
