@@ -3395,6 +3395,83 @@ GROUP BY  patient_id
         $data['content_view'] = 'reports/multi_month_arv_v';
         $this->load->view('template', $data);
     }
+    public function getMMD($to = false){
+        $facility_code = $this->session->userdata("facility");
+        // echo "<pre>";        var_dump($this->session->all_userdata());die;
+         $data['first_day'] = date("Y-m-", strtotime($to)).'01';
+         $data['last_day'] =  date("Y-m-t", strtotime($to));
+
+        $data['facility']= array(
+            'facility_code' => $this->session->userdata('facility'),
+            'facility_name' => $this->session->userdata('facility_name'),
+            'facility_subcounty' => $this->session->userdata('facility_subcounty'),
+            'facility_county' => $this->session->userdata('facility_county'));
+        $data['title'] = "webADT | Reports";
+        $data['hide_side_menu'] = 1;
+        $data['banner_text'] = "Facility Reports";
+        $data['selected_report_type_link'] = "visiting_patient_report_row";
+        $data['selected_report_type'] = "Visiting Patients";
+        $data['report_title'] = "Multi Month ARVs Dispensing (MMD)";
+        $data['facility_name'] = $this->session->userdata('facility_name');     
+        $data['content_view'] = 'reports/MMD_MMS_v';
+        $Month_Year = date('Y-m-d', strtotime($to));
+
+        // pick regimen categories, loop getMMDbyRegimen($date,regimen);
+        $query_str = 'SELECT r.id,r.regimen_code,r.regimen_desc,r.category FROM regimen_category rc
+        left join regimen r on rc.id = r.category
+        WHERE rc.id in (2,3,12,5,6,13,1,10,15,8,9,16,11) 
+        AND r.enabled= 1 order by r.category asc,r.regimen_code ASC';
+        $regimen_category = $this->db->query($query_str);
+        $category = array();
+        
+        if($regimen_category->result_array()){
+            foreach ($regimen_category->result_array() as $rs) {
+                $ko = array('regimens'=>$this->getMMDbyRegimen($Month_Year,$rs['id']),'rs' => $rs);
+                $category[$rs['category']][$rs['id']]=$ko;
+            }
+        }
+        $data['regimens'] = $category;
+
+        $this->load->view('template', $data);
+    }
+    function getMMDbyRegimen($to, $current_regimen){
+        $end_date = date('Y-m-d', strtotime($to));
+        $sql = "SELECT appointment_description, count( tmp.patient_id) as total from(
+                SELECT patient_id, p.nextappointment, max(dispensing_date),  Datediff(p.nextappointment, max(dispensing_date)) appointment_days,rst.name as service,
+                CASE 
+                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 0 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 36 THEN '1MONTH'
+                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 35 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 66 THEN '2MONTH'
+                 WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 65 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 96 THEN '3MONTH'
+                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 95 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 126 THEN '4MONTH'
+                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 125 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 156 THEN '5MONTH'
+                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 155 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 186 THEN '6MONTH'
+                ELSE 'N/A(S)' END AS appointment_description
+                FROM patient_visit pv
+                LEFT JOIN patient p ON p.patient_number_ccc=pv.patient_id
+                LEFT JOIN regimen_service_type rst ON rst.id=p.service
+                WHERE p.current_status=1 
+                AND(rst.name LIKE '%art%' OR rst.name LIKE '%pmtct%')
+                AND dispensing_date<=?
+                and p.current_regimen = ?
+                GROUP BY  patient_id
+                 ) tmp group by appointment_description";
+
+        $query = $this->db->query($sql, array($end_date,$current_regimen));
+        $results = $query->result_array();
+
+        $res['1MONTH'] = 0;
+        $res['2MONTH'] = 0;
+        $res['3MONTH'] = 0;
+        $res['4MONTH'] = 0;
+        $res['5MONTH'] = 0;
+        $res['6MONTH'] = 0;
+
+        foreach ($results as $ob) {
+            $res[$ob['appointment_description']] += $ob['total'];
+        }
+        return $res;
+
+    }
 
     public function getScheduledPatients($from = "", $to = "", $filter_from = NULL, $filter_to = NULL, $appointment_description = NULL) {
         //Variables

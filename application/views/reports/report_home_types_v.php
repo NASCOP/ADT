@@ -170,7 +170,9 @@ $ccc_stores = $this->session->userdata("ccc_store");
                     <option class="date_range_report" value="get_viral_load_results">List of Patient Viral Load Results</option>
                     <option class="date_range_report" value="getPatientList">List of Patients on a given Drug </option>
                     <option class="single_date_report" value="distribution_refill">Multi-Monthly ARVs Dispensing (MMD) </option>
+                    <option class="month_period_report" value="getMMD">Multi-Monthly Dispensing (MMD) FMAP </option>
                 
+                FMAPS_MMD_MMS
                 </select></td>
         </tr>
 
