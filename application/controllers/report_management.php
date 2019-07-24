@@ -3445,6 +3445,7 @@ GROUP BY  patient_id
                 WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 95 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 126 THEN '4MONTH'
                 WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 125 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 156 THEN '5MONTH'
                 WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 155 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 186 THEN '6MONTH'
+                WHEN  pv.differentiated_care = '1' THEN 'MMS3MONTH'
                 ELSE 'N/A(S)' END AS appointment_description
                 FROM patient_visit pv
                 LEFT JOIN patient p ON p.patient_number_ccc=pv.patient_id
@@ -3465,6 +3466,7 @@ GROUP BY  patient_id
         $res['4MONTH'] = 0;
         $res['5MONTH'] = 0;
         $res['6MONTH'] = 0;
+        $res['MMS3MONTH'] = 0;
 
         foreach ($results as $ob) {
             $res[$ob['appointment_description']] += $ob['total'];

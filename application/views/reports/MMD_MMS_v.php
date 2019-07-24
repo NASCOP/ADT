@@ -94,6 +94,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 3 -->
@@ -116,6 +117,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 12 -->
@@ -138,6 +140,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>
 					<tr>
 						<th colspan="9" bgcolor="grey">
@@ -165,6 +168,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 6 -->
@@ -187,6 +191,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>
 						<tr>
 						<!-- Category 13 -->
@@ -209,6 +214,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>					
 					<tr>
 						<th colspan="9" bgcolor="grey">PMTCT</th>						
@@ -234,6 +240,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>		
 					<tr>
 						<!-- Category 10 -->
@@ -245,6 +252,7 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMS-3 Monthly</td>
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr>
 					<?php foreach ($regimens[10] as $r) { ?>
 					<tr>
@@ -256,6 +264,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>					
 
 					<tr>
@@ -272,6 +281,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>	
 					<tr>
 						<th colspan="9" bgcolor="grey">PEP</th>						
@@ -290,6 +300,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>				
 					<tr><!-- Category 9 -->
 						<td class="bold">1</td>
@@ -305,6 +316,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>				
 						<!-- Category 16 -->
 					<tr>
@@ -320,6 +332,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>	
 						<!-- Category 11 -->
 					<tr>
@@ -335,6 +348,7 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>						
+						<td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>	
 						<!-- Category 11 drug.. -->
 					<!-- <tr>
