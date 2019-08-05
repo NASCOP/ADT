@@ -1085,18 +1085,19 @@ class Order extends MY_Controller {
 			$fmaps_array = $query -> result_array();
 			$data['fmaps_array'] = $fmaps_array;
 			$data['options'] = "view";
-			if ($fmaps_array[0]['code'] == "D-MAPS") {
-				$code = 3;
-			} else if ($fmaps_array[0]['code'] == "F-MAPS") {
-				$facility_type = Facilities::getType($this->facility_code);
-				if ($facility_type == 1) {
-					$code = 1;
-				} else if ($facility_type == 0) {
-					$code = 0;
-				} else {
-					$code = 2;
-				}
-			}
+			$code = (Facilities::getType($this->facility_code));
+			// if ($fmaps_array[0]['code'] == "D-MAPS") {
+			// 	$code = 3;
+			// } else if ($fmaps_array[0]['code'] == "F-MAPS") {
+			// 	$facility_type = Facilities::getType($this->facility_code);
+			// 	if ($facility_type == 1) {
+			// 		$code = 1;
+			// 	} else if ($facility_type == 0) {
+			// 		$code = 0;
+			// 	} else {
+			// 		$code = 2;
+			// 	}
+			// }
 			$this -> create_order($type, $code, $data);
 		}
 	}
