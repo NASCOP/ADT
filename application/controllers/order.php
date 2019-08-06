@@ -741,8 +741,8 @@ class Order extends MY_Controller {
 							$cdrr_array[$commodity_counter]['dispensed_packs'] = $quantities_dispensed[$commodity_counter];
 						}
 						else if ($code == "F-CDRR_packs") {
-							$cdrr_array[$commodity_counter]['dispensed_units'] = (@$quantities_dispensed_packs[$commodity_counter] * @$pack_size[$commodity_counter]);
-							$cdrr_array[$commodity_counter]['dispensed_packs'] = $quantities_dispensed_packs[$commodity_counter];
+							$cdrr_array[$commodity_counter]['dispensed_units'] = (@$quantities_dispensed[$commodity_counter]);
+							$cdrr_array[$commodity_counter]['dispensed_packs'] = (@$quantities_dispensed[$commodity_counter]);
 						} 
 						else if ($code == "D-CDRR") {
 							$cdrr_array[$commodity_counter]['dispensed_units'] = (@$quantities_dispensed[$commodity_counter] * @$pack_size[$commodity_counter]);
