@@ -9572,43 +9572,21 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         }
 
         //Get Total of all patients
-            $sql = "SELECT count(t.regimen_desc)    as total ,t.regimen from
-                    (select
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    left join patient p on p.patient_number_ccc =  pv.patient_id
-                    WHERE pv.dispensing_date >='$from'  
-                    $agecond
-                    AND p.gender = $_gender
-                    AND pv.dispensing_date <='$to'  
-                    AND pv.facility= '$facility_code'
-                    group by patient_id 
-                    )  t";
+            $sql = "SELECT p.current_regimen,count(*) as total FROM patient p 
+           LEFT JOIN regimen r ON r.id = p.current_regimen 
+           LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+           LEFT JOIN patient_status ps ON ps.id = p.current_status
+           WHERE p.date_enrolled <='$from' AND ps.name ='active' AND p.facility_code = '$facility_code' 
+           AND p.current_regimen != '' AND p.current_status != ''";
         $query = $this->db->query($sql);
         $results = $query->result_array();
         $total = $results[0]['total'];
         //Get Totals for each regimen
-            $sql = "SELECT count(t.regimen_desc) as total   ,t.regimen_desc,t.regimen_code  ,t.regimen
-            from
-                (SELECT
-                r.regimen_desc ,
-                max(pv.dispensing_date),
-                r.regimen_code, 
-                pv.regimen
-                FROM patient_visit pv
-                left join regimen r on r.id = pv.regimen
-                left join patient p on p.patient_number_ccc =  pv.patient_id
-                WHERE pv.dispensing_date >='$from'  
-                AND pv.dispensing_date <='$to'  
-                AND pv.facility= '$facility_code' 
-                $agecond
-                AND p.gender = $_gender
-                group by patient_id ) t
-                group by regimen_desc";
+            $sql = "SELECT count(*) as total, r.regimen_desc,r.regimen_code,p.current_regimen FROM patient p 
+           LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+           LEFT JOIN patient_status ps ON ps.id = p.current_status
+           WHERE p.date_enrolled <='$from' AND ps.name ='active' AND p.facility_code = '$facility_code' 
+           AND p.current_regimen != '' AND p.current_status != '' GROUP BY p.current_regimen ORDER BY r.regimen_code ASC";
 
         $query = $this->db->query($sql);
         $results = $query->result_array();
@@ -9651,25 +9629,13 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
 
                 //SQL for Adult Male Regimens
    
-                    $sql = "SELECT count(t.patient_id) as total , p.service as service_id,rst.name 
-                    FROM 
-                    (SELECT pv.patient_id,
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date >='$from' 
-                    AND pv.dispensing_date <='$to'  
-                    and pv.regimen = '$current_regimen'
-                    AND pv.facility= '$facility_code' 
-                    group by patient_id ) t
-                    left join patient p on p.patient_number_ccc = t.patient_id
-                    LEFT JOIN regimen_service_type rst ON rst.id = p.service 
-                     where p.gender = $_gender 
-                     $agecond
-                     GROUP BY p.service ORDER BY rst.id ASC ";
+                    $sql = "SELECT count(*) as total,p.service as service_id,rst.name FROM patient p 
+                   LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+                   LEFT JOIN patient_status ps ON ps.id = p.current_status
+                   WHERE p.date_enrolled <='$from' AND ps.name ='active' 
+                   AND p.facility_code = '$facility_code' AND p.current_regimen != '' 
+                   AND p.current_status != '' AND p.gender=1 AND p.current_regimen='$current_regimen' AND FLOOR(datediff('$from',p.dob)/365)>15
+                   GROUP BY p.service ORDER BY rst.id ASC";
                      
                 $query = $this->db->query($sql);
                 $results = $query->result_array();
@@ -10092,12 +10058,10 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
        public function all_service_statistics($start_date = "",$end_date = "") {
         //Variables
         $facility_code = $this->session->userdata("facility");
-        $data = array();
         $data['from'] = $start_date;
-        $data['to'] = $end_date;
         $from = date('Y-m-d', strtotime($start_date));
-        $to = date('Y-m-t', strtotime($end_date));        
         $regimen_totals = array();
+        $data = array();
         $total = 0;
         $overall_adult_male_art = 0;
         $overall_adult_male_pep = 0;
@@ -10123,38 +10087,22 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         $overall_child_female_prep = 0;
 
         //Get Total of all patients
-            $sql = "SELECT count(t.regimen_desc)    as total ,t.regimen from
-                    (select
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date >='$from'  
-                    AND pv.dispensing_date <='$to'  
-                    AND pv.facility= '$facility_code'
-                    group by patient_id 
-                    )  t";
+        $sql = "SELECT p.current_regimen,count(*) as total FROM patient p 
+            LEFT JOIN regimen r ON r.id = p.current_regimen 
+            LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+            LEFT JOIN patient_status ps ON ps.id = p.current_status
+            WHERE p.date_enrolled <='$from' AND ps.name ='active' AND p.facility_code = '$facility_code' 
+            AND p.current_regimen != '' AND p.current_status != ''";
         $query = $this->db->query($sql);
         $results = $query->result_array();
         $total = $results[0]['total'];
-        //Get Totals for each regimen
-            $sql = "SELECT count(t.regimen_desc) as total   ,t.regimen_desc,t.regimen_code  ,t.regimen
-            from
-                (SELECT
-                r.regimen_desc ,
-                max(pv.dispensing_date),
-                r.regimen_code, 
-                pv.regimen
-                FROM patient_visit pv
-                left join regimen r on r.id = pv.regimen
-                WHERE pv.dispensing_date >='$from'  
-                AND pv.dispensing_date <='$to'  
-                AND pv.facility= '$facility_code' 
-                group by patient_id ) t
-                group by regimen_desc";
 
+        //Get Totals for each regimen
+        $sql = "SELECT count(*) as total, r.regimen_desc,r.regimen_code,p.current_regimen FROM patient p 
+            LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+            LEFT JOIN patient_status ps ON ps.id = p.current_status
+            WHERE p.date_enrolled <='$from' AND ps.name ='active' AND p.facility_code = '$facility_code' 
+            AND p.current_regimen != '' AND p.current_status != '' GROUP BY p.current_regimen ORDER BY r.regimen_code ASC";
         $query = $this->db->query($sql);
         $results = $query->result_array();
 
@@ -10247,7 +10195,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 <tbody>";
             foreach ($results as $result) {
                 $regimen_totals[$result['current_regimen']] = $result['total'];
-                $current_regimen = $result['regimen'];
+                $current_regimen = $result['current_regimen'];
                 $regimen_name = $result['regimen_desc'];
                 $regimen_code = $result['regimen_code'];
                 $regimen_total = $result['total'];
@@ -10255,26 +10203,13 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 $dyn_table .= "<tr><td><b>$regimen_code</b> | $regimen_name</td><td>$regimen_total</td><td>$regimen_total_percentage</td>";
 
                 //SQL for Adult Male Regimens
-   
-                    $sql = "SELECT count(t.patient_id) as total , p.service as service_id,rst.name 
-                    FROM 
-                    (SELECT pv.patient_id,
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date >='$from' 
-                    AND pv.dispensing_date <='$to'  
-                    and pv.regimen = '$current_regimen'
-                    AND pv.facility= '$facility_code' 
-                    group by patient_id ) t
-                    left join patient p on p.patient_number_ccc = t.patient_id
-                    LEFT JOIN regimen_service_type rst ON rst.id = p.service 
-                     where FLOOR(datediff('$from',p.dob)/365)>15
-                    and p.gender = 1 GROUP BY p.service ORDER BY rst.id ASC ";
-
+                $sql = "SELECT count(*) as total,p.service as service_id,rst.name FROM patient p 
+                    LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service 
+                    LEFT JOIN patient_status ps ON ps.id = p.current_status
+                    WHERE p.date_enrolled <='$from' AND ps.name ='active' 
+                    AND p.facility_code = '$facility_code' AND p.current_regimen != '' 
+                    AND p.current_status != '' AND p.gender=1 AND p.current_regimen='$current_regimen' AND FLOOR(datediff('$from',p.dob)/365)>15 
+                    GROUP BY p.service ORDER BY rst.id ASC";
                 $query = $this->db->query($sql);
                 $results = $query->result_array();
                 $total_adult_male_art = "-";
@@ -10315,26 +10250,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 }
 
                 //SQL for Adult Female Regimens
-
-           $sql = "SELECT count(t.patient_id) as total , p.service as service_id,rst.name 
-                    FROM 
-                    (SELECT pv.patient_id,
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date >='$from'
-                    AND pv.dispensing_date <='$to'  
-                    and pv.regimen = '$current_regimen'
-                    AND pv.facility= '$facility_code' 
-                    group by patient_id ) t
-                    left join patient p on p.patient_number_ccc = t.patient_id
-                    LEFT JOIN regimen_service_type rst ON rst.id = p.service 
-                     where FLOOR(datediff('$from',p.dob)/365)>15
-                    and p.gender = 2 GROUP BY p.service ORDER BY rst.id ASC ";
-
+                $sql = "SELECT count(*) as total,p.service as service_id,rst.name FROM patient p LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service WHERE p.date_enrolled <='$from' AND p.current_status =1 AND p.facility_code = '$facility_code' AND p.current_regimen != '' AND p.current_status != '' AND p.gender=2 AND p.current_regimen='$current_regimen' AND FLOOR(datediff('$from',p.dob)/365)>15 GROUP BY p.service ORDER BY rst.id ASC";
                 $query = $this->db->query($sql);
                 $results = $query->result_array();
                 $total_adult_female_art = "-";
@@ -10381,25 +10297,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 }
 
                 //SQL for Child Male Regimens
-                   $sql = "SELECT count(t.patient_id) as total , p.service as service_id,rst.name 
-                    FROM 
-                    (SELECT pv.patient_id,
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date>='$from'
-                    AND pv.dispensing_date<='$to'  
-                    and pv.regimen = '$current_regimen'
-                    AND pv.facility= '$facility_code' 
-                    group by patient_id ) t
-                    left join patient p on p.patient_number_ccc = t.patient_id
-                    LEFT JOIN regimen_service_type rst ON rst.id = p.service 
-                     where FLOOR(datediff('$from',p.dob)/365)<=15
-                    and p.gender = 1 GROUP BY p.service ORDER BY rst.id ASC ";
-
+                $sql = "SELECT count(*) as total,p.service as service_id,rst.name FROM patient p LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service WHERE p.date_enrolled <='$from' AND p.current_status =1 AND p.facility_code = '$facility_code' AND p.current_regimen != '' AND p.current_status != '' AND p.gender=1 AND p.current_regimen='$current_regimen' AND FLOOR(datediff('$from',p.dob)/365)<=15 GROUP BY p.service ORDER BY rst.id ASC";
                 $query = $this->db->query($sql);
                 $results = $query->result_array();
                 $total_child_male_art = "-";
@@ -10446,24 +10344,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 }
 
                 //SQL for Child Female Regimens
-   $sql = "SELECT count(t.patient_id) as total , p.service as service_id,rst.name 
-                    FROM 
-                    (SELECT pv.patient_id,
-                    r.regimen_desc ,
-                    max(pv.dispensing_date),
-                    r.regimen_code, 
-                    pv.regimen
-                    FROM patient_visit pv
-                    left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date>='$from'  
-                    AND pv.dispensing_date<='$to'  
-                    and pv.regimen = '$current_regimen'
-                    AND pv.facility= '$facility_code' 
-                    group by patient_id ) t
-                    left join patient p on p.patient_number_ccc = t.patient_id
-                    LEFT JOIN regimen_service_type rst ON rst.id = p.service 
-                     where FLOOR(datediff('$from',p.dob)/365)<=15
-                    and p.gender = 2 GROUP BY p.service ORDER BY rst.id ASC ";
+                $sql = "SELECT count(*) as total,p.service as service_id,rst.name FROM patient p LEFT JOIN regimen r ON r.id = p.current_regimen LEFT JOIN regimen_service_type rst ON rst.id = p.service WHERE p.date_enrolled <='$from' AND p.current_status =1 AND p.facility_code = '$facility_code' AND p.current_regimen != '' AND p.current_status != '' AND p.gender=2 AND p.current_regimen='$current_regimen' AND FLOOR(datediff('$from',p.dob)/365)<=15 GROUP BY p.service ORDER BY rst.id ASC";
                 $query = $this->db->query($sql);
                 $results = $query->result_array();
                 $total_child_female_art = "-";
