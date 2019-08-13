@@ -1,1 +1,0 @@
-UPDATE sync_regimen SET category_id = 20 WHERE code IN ('OI4AN', 'OI4CN') AND category_id = 24//

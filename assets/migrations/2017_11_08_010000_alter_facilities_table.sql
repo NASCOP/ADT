@@ -1,1 +1,0 @@
-ALTER TABLE `facilities` CHANGE `facilitycode` `facilitycode` varchar(10) NOT NULL AFTER `id`//

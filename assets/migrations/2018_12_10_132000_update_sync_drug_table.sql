@@ -1,1 +1,0 @@
-UPDATE sync_drug SET packsize = 1 WHERE formulation LIKE '%susp%' //

@@ -1,1 +1,0 @@
-UPDATE sync_regimen_category SET Active = 0 WHERE Name IN ('Other Adult ART', 'OIs Medicines {CM} and {OC} For Diflucan Donation')//
