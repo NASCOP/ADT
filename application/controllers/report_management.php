@@ -9743,6 +9743,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         $data['content_view'] = 'reports/no_of_patients_receiving_art_byregimen_v';
         $this->load->view('template', $data);
     }
+
         public function clinical_bands($start_date = "",$end_date = "",$gender='',$agegroup = '') {
         //Variables
         $facility_code = $this->session->userdata("facility");
@@ -10059,7 +10060,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         //Variables
         $facility_code = $this->session->userdata("facility");
         $data['from'] = $start_date;
-        $from = date('Y-m-d', strtotime($start_date));
+        $from = date('Y-m-d', time());
         $regimen_totals = array();
         $data = array();
         $total = 0;
@@ -10428,7 +10429,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         $data['selected_report_type'] = "Standard Reports";
         $data['report_title'] = "Active Patients By Regimen ";
         $data['facility_name'] = $this->session->userdata('facility_name');
-        $data['content_view'] = 'reports/no_of_patients_receiving_art_byregimen_v';
+        $data['content_view'] = 'reports/active_patients_receiving_art_byregimen_v';
         $this->load->view('template', $data);
     }
 
