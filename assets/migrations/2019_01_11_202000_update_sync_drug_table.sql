@@ -1,1 +1,2 @@
 UPDATE sync_drug SET packsize = 1 WHERE formulation LIKE '%susp%' //
+UPDATE sync_drug SET Active = 0 WHERE name = 'Efavirenz' AND abbreviation = 'EFV' AND strength = '400mg' AND formulation = 'Tabs' AND packsize = '30'//
