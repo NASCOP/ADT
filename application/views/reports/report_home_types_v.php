@@ -2,9 +2,18 @@
 <?php
 $ccc_stores = $this->session->userdata("ccc_store");
 ?>
-
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#standard_report_select').change(function(){
+            if ($('#standard_report_select').val() == 'all_service_statistics'){   
+            $('.show_report_type').hide();
+            $('#month_period').hide();
+            $('#generate_month_period_report').after("<a class='btn btn-warning generate_btn' href='<?=base_url();?>report_management/all_service_statistics/1'>Generate Report</a>");
+            $('#generate_month_period_report').remove();
+
+            }
+
+        });
         // $('#drugselector').select2();
        $('.nav a').click(function(){
         $('.drugselector').css('display', 'none');
@@ -86,6 +95,8 @@ $ccc_stores = $this->session->userdata("ccc_store");
                 $("#month_end_date").val(year + "-" + month + "-" + last_day_month);
             }
         });
+
+
         $('#reporting_period').focusin(function () {
             $('.ui-datepicker-calendar').hide();
         });
