@@ -9471,8 +9471,8 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         $data = array();
         $data['from'] = $start_date;
         $data['to'] = $end_date;
-        $from = date('Y-m-d', strtotime($start_date));
-        $to = date('Y-m-t', strtotime($end_date));        
+        $from = date('Y-m-d', time());
+        // $to = date('Y-m-t', strtotime($end_date));        
         $regimen_totals = array();
         $data['gender'] = $gender;
         $data['agegroup'] = $agegroup;
@@ -9748,10 +9748,10 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         //Variables
         $facility_code = $this->session->userdata("facility");
         $data = array();
-        $data['from'] = $start_date;
-        $data['to'] = $end_date;
-        $from = date('Y-m-d', strtotime($start_date));
-        $to = date('Y-m-t', strtotime($end_date));        
+        $data['from'] = date('d-M-Y', time());
+        $data['to'] = date('d-M-Y', time());
+        $from = date('Y-m-d', time());
+        $to = date('Y-m-t', time());        
         $regimen_totals = array();
         $data['gender'] = $gender;
         $data['agegroup'] = $agegroup;
@@ -9860,10 +9860,10 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                     FROM patient_visit pv
                     left join regimen r on r.id = pv.regimen
                     left join patient p on p.patient_number_ccc =  pv.patient_id
-                    WHERE pv.dispensing_date >='$from'  
+                    WHERE pv.dispensing_date <='$from'  
                     $agecond
                     AND p.gender = $_gender
-                    AND pv.dispensing_date <='$to'  
+                    -- AND pv.dispensing_date <='$to'  
                     AND pv.facility= '$facility_code'
                     group by patient_id 
                     )  t";
@@ -9881,8 +9881,8 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                 FROM patient_visit pv
                 left join regimen r on r.id = pv.regimen
                 left join patient p on p.patient_number_ccc =  pv.patient_id
-                WHERE pv.dispensing_date >='$from'  
-                AND pv.dispensing_date <='$to'  
+                WHERE pv.dispensing_date <='$from'  
+                -- AND pv.dispensing_date <='$to'  
                 AND pv.facility= '$facility_code' 
                 $agecond
                 AND p.gender = $_gender
@@ -9939,8 +9939,8 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
                     pv.regimen
                     FROM patient_visit pv
                     left join regimen r on r.id = pv.regimen
-                    WHERE pv.dispensing_date >='$from' 
-                    AND pv.dispensing_date <='$to'  
+                    WHERE pv.dispensing_date <='$from' 
+                    -- AND pv.dispensing_date <='$to'  
                     and pv.regimen = '$current_regimen'
                     AND pv.facility= '$facility_code' 
                     group by patient_id ) t
@@ -10043,7 +10043,7 @@ $this->getAdherence($name = "appointment", $start_date , $end_date, $type,TRUE) 
         } else {
             $dyn_table = "<h4 style='text-align: center'><span >No Data Available</span></h4>";
         }
-        $data['from'] = date('d-M-Y', strtotime($from));
+        $data['from'] = date('d-M-Y', time());
         $data['dyn_table'] = $dyn_table;
         $data['title'] = "webADT | Reports";
         $data['hide_side_menu'] = 1;
