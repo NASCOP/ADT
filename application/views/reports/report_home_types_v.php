@@ -150,8 +150,8 @@ $ccc_stores = $this->session->userdata("ccc_store");
                     <option class="annual_report" value="graph_patients_enrolled_in_year">Graph of Number of Patients Enrolled Per Month in a Given Year</option>
                     <option class="single_date_report" value="cumulative_patients">Cumulative Number of Patients to Date</option>
                     <option class="month_period_report" value="all_service_statistics">Number of Active Patients Receiving ART (by Regimen)</option>
-                    <option class="date_range_report" value="clinical_bands">Filtered number of Active Patients receiving ART (by AGE - Clinical Age Bands) </option>
-                    <option class="date_range_report" value="service_statistics">Filtered number of Active Patients receiving ART (by AGE - formulation age bands)</option>
+                    <!--<option class="date_range_report" value="clinical_bands">Filtered number of Active Patients receiving ART (by AGE - Clinical Age Bands) </option>
+                    <option class="date_range_report" value="service_statistics">Filtered number of Active Patients receiving ART (by AGE - formulation age bands)</option>-->
                     <option class="single_date_report" value="getFamilyPlanning">Family Planning Summary</option>
                     <option class="date_range_report" value="getIndications">Patient Indications Summary</option>
                     <option class="date_range_report" value="getTBPatients">TB Stages Summary</option>
@@ -180,10 +180,9 @@ $ccc_stores = $this->session->userdata("ccc_store");
                     <option class="date_range_report" value="dispensingReport">Patients Visit Summary</option>
                     <option class="date_range_report" value="get_viral_load_results">List of Patient Viral Load Results</option>
                     <option class="date_range_report" value="getPatientList">List of Patients on a given Drug </option>
-                    <option class="single_date_report" value="distribution_refill">Multi-Monthly ARVs Dispensing (MMD) </option>
-                    <option class="month_period_report" value="getMMD">Multi-Monthly Dispensing (MMD) FMAP </option>
-                
-                FMAPS_MMD_MMS
+                    <!--<option class="single_date_report" value="distribution_refill">Multi-Monthly ARVs Dispensing (MMD) </option>-->
+                    <option class="month_period_report" value="getMMD">Multi-Monthly Dispensing (MMD) </option>
+                   <option class="month_period_report" value="getMMDAgeGender">FMAP by Age and Gender </option>
                 </select></td>
         </tr>
 

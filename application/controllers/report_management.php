@@ -3439,19 +3439,20 @@ GROUP BY  patient_id
         $sql = "SELECT appointment_description, count( tmp.patient_id) as total from(
                 SELECT patient_id, p.nextappointment, max(dispensing_date),  Datediff(p.nextappointment, max(dispensing_date)) appointment_days,rst.name as service,
                 CASE 
-                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 0 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 36 THEN '1MONTH'
-                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 35 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 66 THEN '2MONTH'
-                 WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 65 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 96 THEN '3MONTH'
-                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 95 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 126 THEN '4MONTH'
-                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 125 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 156 THEN '5MONTH'
-                WHEN  Datediff(p.nextappointment, max(dispensing_date) ) > 155 AND  Datediff(p.nextappointment, max(dispensing_date) ) < 186 THEN '6MONTH'
-                WHEN  pv.differentiated_care = '1' THEN 'MMS3MONTH'
+                WHEN  p.differentiated_care = '1' THEN 'MMS3MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 0 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 36 THEN '1MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 35 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 66 THEN '2MONTH'
+                 WHEN floor(Datediff(p.nextappointment, max(dispensing_date) )) > 65 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 96 THEN '3MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 95 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 126 THEN '4MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 125 AND floor(Datediff(p.nextappointment, max(dispensing_date) )) < 156 THEN '5MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 155 AND floor(Datediff(p.nextappointment, max(dispensing_date) )) < 186 THEN '6MONTH'
+                WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 185 THEN 'OVER6MONTH'
                 ELSE 'N/A(S)' END AS appointment_description
                 FROM patient_visit pv
                 LEFT JOIN patient p ON p.patient_number_ccc=pv.patient_id
+                LEFT JOIN patient_status ps ON ps.id=p.current_status
                 LEFT JOIN regimen_service_type rst ON rst.id=p.service
-                WHERE p.current_status=1 
-                AND(rst.name LIKE '%art%' OR rst.name LIKE '%pmtct%')
+                WHERE ps.name LIKE "%active%"
                 AND dispensing_date<=?
                 and p.current_regimen = ?
                 GROUP BY  patient_id
@@ -3466,7 +3467,120 @@ GROUP BY  patient_id
         $res['4MONTH'] = 0;
         $res['5MONTH'] = 0;
         $res['6MONTH'] = 0;
+        $res['OVER6MONTH'] = 0;
         $res['MMS3MONTH'] = 0;
+
+        foreach ($results as $ob) {
+            $res[$ob['appointment_description']] += $ob['total'];
+        }
+        return $res;
+
+    }
+            public function getMMDAgeGender($to = false){
+        $facility_code = $this->session->userdata("facility");
+        // echo "<pre>";        var_dump($this->session->all_userdata());die;
+         $data['first_day'] = date("Y-m-", strtotime($to)).'01';
+         $data['last_day'] =  date("Y-m-t", strtotime($to));
+
+        $data['facility']= array(
+            'facility_code' => $this->session->userdata('facility'),
+            'facility_name' => $this->session->userdata('facility_name'),
+            'facility_subcounty' => $this->session->userdata('facility_subcounty'),
+            'facility_county' => $this->session->userdata('facility_county'));
+        $data['title'] = "webADT | Reports";
+        $data['hide_side_menu'] = 1;
+        $data['banner_text'] = "Facility Reports";
+        $data['selected_report_type_link'] = "visiting_patient_report_row";
+        $data['selected_report_type'] = "Visiting Patients";
+        $data['report_title'] = "FMAP by Age and Gender";
+        $data['facility_name'] = $this->session->userdata('facility_name');     
+        $data['content_view'] = 'reports/MMD_gender_v';
+        $Month_Year = date('Y-m-d', strtotime($to));
+
+        // pick regimen categories, loop getMMDAgeGenderRegimen($date,regimen);
+        $query_str = 'SELECT r.id,r.regimen_code,r.regimen_desc,r.category FROM regimen_category rc
+        left join regimen r on rc.id = r.category
+        WHERE rc.id in (2,3,12,5,6,13,1,10,15,8,9,16,11) 
+        AND r.enabled= 1 order by r.category asc,r.regimen_code ASC';
+        $regimen_category = $this->db->query($query_str);
+        $category = array();
+        
+        if($regimen_category->result_array()){
+            foreach ($regimen_category->result_array() as $rs) {
+                $ko = array('regimens'=>$this->getMMDAgeGenderRegimen($Month_Year,$rs['id']),'rs' => $rs);
+                $category[$rs['category']][$rs['id']]=$ko;
+            }
+        }
+        $data['regimens'] = $category;
+
+        $this->load->view('template', $data);
+    }
+    function getMMDAgeGenderRegimen($to, $current_regimen){
+        $end_date = date('Y-m-d', strtotime($to));
+        $sql = "SELECT appointment_description, count( tmp.patient_number_ccc) as total from(
+                    SELECT patient_number_ccc,gender, dob, pv.dispensing_date,rst.name as service,(DATEDIFF(CURDATE(),dob)/365) as age,                
+                    CASE 
+                    WHEN gender = '2' and FLOOR(DATEDIFF(CURDATE(),dob)/365)<1 THEN '1_female'
+                    WHEN gender = '1' and FLOOR(DATEDIFF(CURDATE(),dob)/365)<1 THEN '1_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>0 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<5) THEN '1_4_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>0 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<5) THEN '1_4_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>4 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<10) THEN '5_9_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>4 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<10) THEN '5_9_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>9 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<15) THEN '10_14_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>9 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<15) THEN '10_14_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>14 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<20) THEN '15_19_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>14 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<20) THEN '15_19_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>19 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<25) THEN '20_24_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>19 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<25) THEN '20_24_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>24 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<30) THEN '25_29_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>24 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<30) THEN '25_29_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>29 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<35) THEN '30_34_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>29 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<35) THEN '30_34_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>34 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<40) THEN '35_39_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>34 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<40) THEN '35_39_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>39 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<45) THEN '40_44_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>39 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<45) THEN '40_44_male'
+                    WHEN gender = '2' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>44 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<50) THEN '45_49_female'
+                    WHEN gender = '1' and (FLOOR(DATEDIFF(CURDATE(),dob)/365)>44 and FLOOR(DATEDIFF(CURDATE(),dob)/365)<50) THEN '45_49_male'
+                    WHEN gender = '2' and FLOOR(DATEDIFF(CURDATE(),dob)/365)>50 THEN '50_female'
+                    WHEN gender = '1' and FLOOR(DATEDIFF(CURDATE(),dob)/365)>50 THEN '50_male'
+                ELSE 'N/A(S)' END AS appointment_description
+                FROM patient p
+                LEFT JOIN patient_visit pv ON pv.patient_id=p.patient_number_ccc
+                LEFT JOIN regimen_service_type rst ON rst.id=p.service
+                WHERE p.current_status=1 
+                AND dispensing_date<=?
+                and p.current_regimen = ?
+                GROUP BY  patient_number_ccc
+                 ) tmp group by appointment_description";
+
+        $query = $this->db->query($sql, array($end_date,$current_regimen));
+        $results = $query->result_array();
+
+        $res['1_female'] = 0;
+        $res['1_male'] = 0;
+        $res['1_4_female'] = 0;
+        $res['1_4_male'] = 0;
+        $res['5_9_female'] = 0;
+        $res['5_9_male'] = 0;
+        $res['10_14_female'] = 0;
+        $res['10_14_male'] = 0;
+        $res['15_19_female'] = 0;
+        $res['15_19_male'] = 0;
+        $res['20_24_female'] = 0;
+        $res['20_24_male'] = 0;
+        $res['25_29_female'] = 0;
+        $res['25_29_male'] = 0;
+        $res['30_34_female'] = 0;
+        $res['30_34_male'] = 0;
+        $res['35_39_female'] = 0;
+        $res['35_39_male'] = 0;
+        $res['40_44_female'] = 0;
+        $res['40_44_male'] = 0;
+        $res['45_49_female'] = 0;
+        $res['45_49_male'] = 0;
+        $res['50_female'] = 0;
+        $res['50_male'] = 0; 
 
         foreach ($results as $ob) {
             $res[$ob['appointment_description']] += $ob['total'];
