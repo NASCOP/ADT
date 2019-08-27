@@ -3452,7 +3452,7 @@ GROUP BY  patient_id
                 LEFT JOIN patient p ON p.patient_number_ccc=pv.patient_id
                 LEFT JOIN patient_status ps ON ps.id=p.current_status
                 LEFT JOIN regimen_service_type rst ON rst.id=p.service
-                WHERE ps.name LIKE "%active%"
+                WHERE ps.name LIKE '%active%'
                 AND dispensing_date<=?
                 and p.current_regimen = ?
                 GROUP BY  patient_id
@@ -3548,7 +3548,8 @@ GROUP BY  patient_id
                 FROM patient p
                 LEFT JOIN patient_visit pv ON pv.patient_id=p.patient_number_ccc
                 LEFT JOIN regimen_service_type rst ON rst.id=p.service
-                WHERE p.current_status=1 
+                LEFT JOIN patient_status ps ON ps.id=p.current_status
+                WHERE ps.name LIKE '%active%'
                 AND dispensing_date<=?
                 and p.current_regimen = ?
                 GROUP BY  patient_number_ccc
