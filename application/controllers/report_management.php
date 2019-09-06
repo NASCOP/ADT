@@ -3439,7 +3439,6 @@ GROUP BY  patient_id
         $sql = "SELECT appointment_description, count( tmp.patient_id) as total from(
                 SELECT patient_id, p.nextappointment, max(dispensing_date),  Datediff(p.nextappointment, max(dispensing_date)) appointment_days,rst.name as service,
                 CASE 
-                WHEN  p.differentiated_care = '1' THEN 'MMS3MONTH'
                 WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 0 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 36 THEN '1MONTH'
                 WHEN  floor(Datediff(p.nextappointment, max(dispensing_date) )) > 35 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 66 THEN '2MONTH'
                  WHEN floor(Datediff(p.nextappointment, max(dispensing_date) )) > 65 AND  floor(Datediff(p.nextappointment, max(dispensing_date) )) < 96 THEN '3MONTH'

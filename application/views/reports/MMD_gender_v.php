@@ -75,7 +75,7 @@
 					</tr>				
 					<tr>
 						<!-- Category 2 -->
-						<td colspan="2">Adult ART 1st Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 1st Line regimens</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -88,11 +88,12 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="bold"></td>
 						<td class="bold">F</td>
-						<td class="bold">M</td>
+						<td class="bold">M</td> 
 						<td class="bold">F</td>
 						<td class="bold">M</td>
 						<td class="bold">F</td>
@@ -115,6 +116,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 						<?php foreach ($regimens[2] as $r) { ?>
 					<tr>
@@ -143,11 +145,12 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>						
+						<td><?=$r['regimens']['50_male']?></td>		
+						<td><?=$total=array_sum($r['regimens'])?></td>					
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 3 -->
-						<td colspan="2">Adult ART 2nd Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 2nd Line regimens</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -160,6 +163,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="bold"></td>
@@ -187,6 +191,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[3] as $r) { ?>
 					<tr>
@@ -215,11 +220,12 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>		
+						<td><?=$total=array_sum($r['regimens'])?></td>										
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 12 -->
-						<td colspan="2">Adult ART 3rd Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 3rd Line regimens</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -232,6 +238,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 						<tr>
 						<td colspan="2" class="bold"></td>
@@ -259,6 +266,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[12] as $r) { ?>
 					<tr>
@@ -287,7 +295,8 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>											
 					</tr><?php } ?>
 					<tr>
 						<th colspan="28" bgcolor="grey">
@@ -309,6 +318,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 						<tr>
 						<td colspan="2" class="bold"></td>
@@ -336,6 +346,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[5] as $r) { ?>
 					<tr>
@@ -364,11 +375,13 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>	
+
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 6 -->
-						<td colspan="2">Paediatric ART 2nd Line regimens</td>
+						<td colspan="2" class="bold">Paediatric ART 2nd Line regimens</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -381,6 +394,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 						<tr>
 						<td colspan="2" class="bold"></td>
@@ -408,6 +422,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[6] as $r) { ?>
 					<tr>
@@ -436,11 +451,12 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>											
 					</tr><?php } ?>
 						<tr>
 						<!-- Category 13 -->
-						<td colspan="2">Paediatric ART 3rd Line regimens</td>
+						<td colspan="2" class="bold">Paediatric ART 3rd Line regimens</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -453,6 +469,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>					
 					<?php foreach ($regimens[13] as $r) { ?>
 					<tr>
@@ -481,14 +498,15 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>		
+						<td><?=$total=array_sum($r['regimens'])?></td>										
 					</tr><?php } ?>					
 					<tr>
 						<th colspan="28" bgcolor="grey">PMTCT</th>						
 					</tr>
 					<tr>
 						<!-- Category 1 -->
-						<td colspan="2">Pregnant women or HEI Mothers</td>
+						<td colspan="2" class="bold">Pregnant women or HEI Mothers</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -501,6 +519,7 @@
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
 						<td colspan="2" class="bold">50+</td>
+						<td colspan="2" class="bold"></td>
 					</tr>
 						<tr>
 						<td colspan="2" class="bold"></td>
@@ -528,6 +547,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[1] as $r) { ?>
 					<tr>
@@ -556,11 +576,12 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>		
+						<td><?=$total=array_sum($r['regimens'])?></td>										
 					</tr><?php } ?>		
 					<tr>
 						<!-- Category 10 -->
-						<td colspan="2">Infants</td>
+						<td colspan="2" class="bold">Infants</td>
 						<td colspan="2" class="bold"><1</td>
 						<td colspan="2" class="bold">1-4</td>
 						<td colspan="2" class="bold">5-9</td>
@@ -572,7 +593,8 @@
 						<td colspan="2" class="bold">35-39</td>
 						<td colspan="2" class="bold">40-44</td>
 						<td colspan="2" class="bold">45-49</td>
-						<td colspan="2" class="bold">50+</td>											
+						<td colspan="2" class="bold">50+</td>		
+						<td colspan="2" class="bold"></td>									
 					</tr>
 						<tr>
 						<td colspan="2" class="bold"></td>
@@ -600,6 +622,7 @@
 						<td class="bold">M</td>
 						<td class="bold">F</td>
 						<td class="bold">M</td>
+						<td class="bold">Total</td>
 					</tr>
 					<?php foreach ($regimens[10] as $r) { ?>
 					<tr>
@@ -628,7 +651,8 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>												
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>												
 					</tr><?php } ?>					
 
 					<tr>
@@ -662,14 +686,15 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>											
 					</tr><?php } ?>	
 					<tr>
 						<th colspan="28" bgcolor="grey">PEP</th>						
 					</tr>	
 					<tr><!-- Category 8 -->
-						<td class="bold">1</td>
-						<td colspan="8" class="bold">PEP for Adults</td>
+						<!--<td class="bold">1</td>-->
+						<td colspan="28" class="bold">PEP for Adults</td>
 					</tr>
 					<?php foreach ($regimens[8] as $r) { ?>
 					<tr>
@@ -698,13 +723,14 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>												
+						<td><?=$r['regimens']['50_male']?></td>		
+						<td><?=$total=array_sum($r['regimens'])?></td>											
 					</tr><?php } ?>				
 					<tr><!-- Category 9 -->
-						<td class="bold">1</td>
-						<td colspan="8" class="bold">PEP for Children</td>
+						<!--<td class="bold">1</td>-->
+						<td colspan="28" class="bold">PEP for Children</td>
 					</tr>
-					<?php foreach ($regimens[8] as $r) { ?>
+					<?php foreach ($regimens[9] as $r) { ?>
 						<td><?=$r['rs']['regimen_code']?></td>
 						<td><?=$r['rs']['regimen_desc']?></td>
 						<td><?=$r['regimens']['1_female']?></td>
@@ -730,7 +756,8 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>												
+						<td><?=$r['regimens']['50_male']?></td>
+						<td><?=$total=array_sum($r['regimens'])?></td>	
 					</tr><?php } ?>				
 						<!-- Category 16 -->
 					<tr>
@@ -763,10 +790,11 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>												
+						<td><?=$r['regimens']['50_male']?></td>			
+						<td><?=$total=array_sum($r['regimens'])?></td>										
 					</tr><?php } ?>	
 						<!-- Category 11 -->
-					<tr>
+					<!--<tr>
 						<th colspan="28" bgcolor="grey">Management of Opportunistic infections (OIs)</th>
 					</tr>
 					<?php foreach ($regimens[11] as $r) { ?>
@@ -796,8 +824,9 @@
 						<td><?=$r['regimens']['45_49_female']?></td>		
 						<td><?=$r['regimens']['45_49_male']?></td>
 						<td><?=$r['regimens']['50_female']?></td>		
-						<td><?=$r['regimens']['50_male']?></td>											
-					</tr><?php } ?>	
+						<td><?=$r['regimens']['50_male']?></td>	
+						<td><?=$total=array_sum($r['regimens'])?></td>											
+					</tr><?php } ?>	-->
 						<!-- Category 11 drug.. -->
 					<!-- <tr>
 						<td>1</td>
