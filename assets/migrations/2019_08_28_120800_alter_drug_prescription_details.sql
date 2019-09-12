@@ -1,0 +1,9 @@
+ALTER TABLE drug_prescription_details CHANGE `drug_prescriptionid` `drug_prescriptionid` bigint(20) NULL//
+ALTER TABLE drug_prescription_details CHANGE `drug_name` `drug_name` varchar(200) NULL//
+ALTER TABLE drug_prescription_details CHANGE `coding_system` `coding_system` varchar(200) NULL//
+ALTER TABLE drug_prescription_details CHANGE `strength` `strength` varchar(20) NULL//
+ALTER TABLE drug_prescription_details CHANGE `dosage` `dosage` varchar(50) NULL//
+ALTER TABLE drug_prescription_details CHANGE `frequency` `frequency` varchar(100) NULL//
+ALTER TABLE drug_prescription_details CHANGE `duration` `duration` varchar(100) NULL//
+ALTER TABLE drug_prescription_details CHANGE `quantity_prescribed` `quantity_prescribed` int(11) NULL//
+ALTER TABLE drug_prescription_details CHANGE `prescription_notes` `prescription_notes` varchar(300) NULL//

@@ -75,7 +75,7 @@
 					</tr>				
 					<tr>
 						<!-- Category 2 -->
-						<td colspan="2">Adult ART 1st Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 1st Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -83,7 +83,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 						<?php foreach ($regimens[2] as $r) { ?>
 					<tr>
@@ -95,12 +96,13 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>		
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 3 -->
-						<td colspan="2">Adult ART 2nd Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 2nd Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -108,7 +110,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 					<?php foreach ($regimens[3] as $r) { ?>
 					<tr>
@@ -120,12 +123,13 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>		
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 12 -->
-						<td colspan="2">Adult ART 3rd Line regimens</td>
+						<td colspan="2" class="bold">Adult ART 3rd Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -133,7 +137,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 					<?php foreach ($regimens[12] as $r) { ?>
 					<tr>
@@ -145,8 +150,9 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>					
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>
 					<tr>
 						<th colspan="12" bgcolor="grey">
@@ -155,7 +161,7 @@
 					</tr>				
 					<tr>
 						<!-- Category 5 -->
-						<td colspan="2">Paediatric ART 1st Line regimens</td>
+						<td colspan="2" class="bold">Paediatric ART 1st Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -163,7 +169,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 					<?php foreach ($regimens[5] as $r) { ?>
 					<tr>
@@ -175,12 +182,13 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->									
 					</tr><?php } ?>
 					<tr>
 						<!-- Category 6 -->
-						<td colspan="2">Paediatric ART 2nd Line regimens</td>
+						<td colspan="2" class="bold">Paediatric ART 2nd Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -188,7 +196,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 					<?php foreach ($regimens[6] as $r) { ?>
 					<tr>
@@ -200,12 +209,13 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>		
-						<td><?=$r['regimens']['OVER6MONTH']?></td>				
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>			
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>
 						<tr>
 						<!-- Category 13 -->
-						<td colspan="2">Paediatric ART 3rd Line regimens</td>
+						<td colspan="2" class="bold">Paediatric ART 3rd Line regimens</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -213,7 +223,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>					
 					<?php foreach ($regimens[13] as $r) { ?>
 					<tr>
@@ -225,15 +236,16 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>					
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>					
 					<tr>
 						<th colspan="12" bgcolor="grey">PMTCT</th>						
 					</tr>
 					<tr>
 						<!-- Category 1 -->
-						<td colspan="2">Pregnant women or HEI Mothers</td>
+						<td colspan="2" class="bold">Pregnant women or HEI Mothers</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -241,7 +253,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->
 					</tr>
 					<?php foreach ($regimens[1] as $r) { ?>
 					<tr>
@@ -253,12 +266,13 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>		
-						<td><?=$r['regimens']['OVER6MONTH']?></td>				
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>		
 					<tr>
 						<!-- Category 10 -->
-						<td colspan="2">Infants</td>
+						<td colspan="2" class="bold">Infants</td>
 						<td class="bold">≤ 1month</td>
 						<td class="bold">MMD-2Months</td>
 						<td class="bold">MMD-3 Months</td>
@@ -266,7 +280,8 @@
 						<td class="bold">MMD-5 Months</td>
 						<td class="bold">MMD-6Months</td>
 						<td class="bold">MMD OVER-6Months</td>
-						<td class="bold">MMS-3 Monthly</td>											
+						<td class="bold">Total</td>
+						<!--<td class="bold">MMS-3 Monthly</td>-->											
 					</tr>
 					<?php foreach ($regimens[10] as $r) { ?>
 					<tr>
@@ -278,8 +293,9 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>
-						<td><?=$r['regimens']['OVER6MONTH']?></td>						
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>						
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>					
 
 					<tr>
@@ -296,15 +312,16 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>		
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>	
 					<tr>
 						<th colspan="12" bgcolor="grey">PEP</th>						
 					</tr>	
 					<tr><!-- Category 8 -->
-						<td class="bold">1</td>
-						<td colspan="8" class="bold">PEP for Adults</td>
+						<!--<td class="bold">1</td>-->
+						<td colspan="12" class="bold">PEP for Adults</td>
 					</tr>
 					<?php foreach ($regimens[8] as $r) { ?>
 					<tr>
@@ -316,14 +333,15 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>		
-						<td><?=$r['regimens']['OVER6MONTH']?></td>				
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>				
 					<tr><!-- Category 9 -->
-						<td class="bold">1</td>
-						<td colspan="8" class="bold">PEP for Children</td>
+						<!--<td class="bold">1</td>-->
+						<td colspan="12" class="bold">PEP for Children</td>
 					</tr>
-					<?php foreach ($regimens[8] as $r) { ?>
+					<?php foreach ($regimens[9] as $r) { ?>
 					<tr>
 						<td><?=$r['rs']['regimen_code']?></td>
 						<td><?=$r['rs']['regimen_desc']?></td>
@@ -333,11 +351,12 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>					
+						<!--<td><?=$r['regimens']['MMS3MONTH']?></td>-->											
 					</tr><?php } ?>				
 						<!-- Category 16 -->
-					<tr>
+					<!--<tr>
 						<th colspan="12" bgcolor="grey">Hepatitis B Patients who are HIV-ve</th>						
 					</tr>
 					<?php foreach ($regimens[16] as $r) { ?>
@@ -350,10 +369,11 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>		
-						<td><?=$r['regimens']['OVER6MONTH']?></td>				
-						<td><?=$r['regimens']['MMS3MONTH']?></td>											
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>				
+						td><?=$r['regimens']['MMS3MONTH']?></td>											
 					</tr><?php } ?>	
-						<!-- Category 11 -->
+						 Category 11 
 					<tr>
 						<th colspan="12" bgcolor="grey">Management of Opportunistic infections (OIs)</th>
 					</tr>
@@ -367,9 +387,10 @@
 						<td><?=$r['regimens']['4MONTH']?></td>
 						<td><?=$r['regimens']['5MONTH']?></td>
 						<td><?=$r['regimens']['6MONTH']?></td>	
-						<td><?=$r['regimens']['OVER6MONTH']?></td>					
+						<td><?=$r['regimens']['OVER6MONTH']?></td>	
+						<td><?=$total=array_sum($r['regimens'])-end($r['regimens'])?></td>					
 						<td><?=$r['regimens']['MMS3MONTH']?></td>											
-					</tr><?php } ?>	
+					</tr><?php } ?>	-->
 						<!-- Category 11 drug.. -->
 					<!-- <tr>
 						<td>1</td>
