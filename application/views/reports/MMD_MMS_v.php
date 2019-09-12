@@ -6,7 +6,7 @@
 <div id="wrapperd">
 	<div id="patient_enrolled_content" class="full-content">
 		<?php $this->load->view("reports/reports_top_menus_v") ?>
-		<h4 style="text-align: center" id='report_title'><?=$report_title;?> As at <?php echo date('d-M-Y',strtotime($to)); ?> </h4>
+		<h4 style="text-align: center" id='report_title'><?=$report_title;?> As at <?php echo date('M-Y',strtotime($to)); ?> </h4>
 		<hr size="1" style="width:80%">	
 		<div id="appointment_list">
 			<table cellpadding="5" border="1" width="100%" style="border:1px solid #DDD;">
