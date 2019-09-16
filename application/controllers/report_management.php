@@ -3480,6 +3480,7 @@ GROUP BY  patient_id
         // echo "<pre>";        var_dump($this->session->all_userdata());die;
          $data['first_day'] = date("Y-m-", strtotime($to)).'01';
          $data['last_day'] =  date("Y-m-t", strtotime($to));
+         $data['to'] =  date("Y-m-t", strtotime($to));
 
         $data['facility']= array(
             'facility_code' => $this->session->userdata('facility'),
