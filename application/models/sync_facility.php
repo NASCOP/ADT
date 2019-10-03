@@ -35,9 +35,9 @@ class Sync_facility extends Doctrine_Record {
 	public function getId($facility_code, $parent_sites = 0) {
 		if($parent_sites == 0){
 			$conditions = "code='$facility_code' and category like '%satellite%' and ordering = '0' and service_point = '1'";
-		}else if($parent_sites >= 1){
+		}else if($parent_sites == 1){
 			$conditions = "code='$facility_code' and category like '%standalone%' and ordering = '1' and service_point = '1'";
-		}else{
+		}else if($parent_sites > 1){
 			$conditions = "code='$facility_code' and category like '%central%' and ordering = '1' and service_point = '0'";
 		}
 		$query = Doctrine_Query::create() -> select("id") -> from("sync_facility") -> where("$conditions");
