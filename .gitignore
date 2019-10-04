@@ -50,3 +50,13 @@ tools/backup_db/*
 !tools/backup_db/testadt_new_site.sql.zip
 !tools/backup_db/testadt_access_editt.sql.zip
 /nbproject/private/
+
+.buildpath
+.project
+.settings
+# Mac DS_Store Files
+.DS_Store
+# vagrant runtime
+/.vagrant
+.idea/
+*.iml
