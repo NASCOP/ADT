@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-$config['adt_version'] = '3.5(BETA)';
+$config['adt_version'] = '3.4';
 $config['server_url'] = 'http://197.248.7.226/api/public/api/v1/';  // ppb API url
 $config['ip'] = '197.248.7.226'; // PPB IP address
 $config['port'] = '80'; // PPB PORt

@@ -46,4 +46,3 @@ class Github extends MX_Controller {
 	}
 
 }
-
