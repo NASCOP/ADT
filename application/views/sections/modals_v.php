@@ -13,6 +13,33 @@
 
 </style>
 
+<!-- ADT UPDATE Modal-->
+<div id="adt_update_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form action="<?php echo base_url().'user_management/profile_update' ?>" method="post" id="profile_update_frm">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Update Progress</h3>
+  </div>
+  <div class="modal-body">
+
+  	<p>A newer version of ADT is available. <br />You are currently using <?= $this->config->item('adt_version'); ?></p>
+   		<!-- <div id="profile_error"></div> -->
+		<table>
+	<tr>
+		<td></td>
+	</tr>
+
+		</table>
+	
+  </div>
+  
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <input type="submit" class="btn btn-primary" value="Save changes" id="btn_save_profile_frm">
+  </div>
+  </form>
+</div>
+
 <!-- Modal edit user profile-->
 <div id="edit_user_profile" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <form action="<?php echo base_url().'user_management/profile_update' ?>" method="post" id="profile_update_frm">

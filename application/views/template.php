@@ -528,7 +528,7 @@ if ($user_is_administrator) {
                         <div id="footer_text2" class="span12" style="text-align:center">
                             Government of Kenya &copy; <?php echo date('Y'); ?>.
                             All Rights Reserved . <strong>Web-ADT version <?= $this->config->item('adt_version'); ?></strong>
-
+                            <a class="badge badge-warning" href="#adt_update_modal" data-toggle="modal">New Update available</div>
                         </div>  
                     </div>
                 </div>
