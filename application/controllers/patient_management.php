@@ -510,8 +510,8 @@ class Patient_management extends MY_Controller {
         ];
         $i = 0;
         foreach ($mandatory as $r) {
-            // echo $r ." => ".$result[0]->$r ."<br>";
-            if (trim($result[0]->$r) == '') {
+ 
+             if (trim($result[0]->$r) == '' || trim($result[0]->$r) == 'NULL') {
                 $required .= $label[$i] . ", ";
                 $status = 1;
             }

@@ -128,7 +128,7 @@ class Dispensement_management extends MY_Controller {
         if ($results) {
             $patient_no = $results[0]['patient_number_ccc'];
             $age = @$results[0]['age'];
-            $data['age']  = @$results[0]['age'];
+            $data['age']  = @$results[0]['age']+0;
             $service_name = $results[0]['service_name'];
             $data['results'] = $results;
         }
