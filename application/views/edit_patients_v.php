@@ -693,10 +693,14 @@ foreach($results as $result){
 	    //Function to display transfer from list if patient source is(transfer in)
 	    $("#source").change(function() {
 	    	var selected_value = $(this).val();
-	    	if (selected_value == 3) {
+
+	    	if($('#source option:selected').html().toLowerCase().indexOf('transfer') >= 0) {
 	    		$("#patient_source_listing").show();
+	    		$("#facility-service").hide();
 	    	} else {
 	    		$("#patient_source_listing").hide();
+	    		$("#facility-service").show();
+
 	    		$("#transfer_source").attr("value", '');
 	    	}
 	    });
@@ -1061,7 +1065,7 @@ function getAge(dateString) {
 										?>
 									</select>
 								</div>
-								<div class="max-row">
+								<div class="max-row" id="facility-service">
 								<a href="javascript:;;" onclick="setCCC('ART')">ART</a> | <a href="javascript:;;" onclick="setCCC('PREP')">PREP</a> | <a href="javascript:;;" onclick="setCCC('HEI')">HEI</a> | <a href="javascript:;;" onclick="setCCC('PEP')">PEP</a> | <a href="javascript:;;" onclick="setCCC('HEP')">HEP</a>
 							</div>
 							<div class="max-row">
