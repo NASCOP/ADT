@@ -705,17 +705,15 @@
 		 physical_count = calculated_physical;
 		 } 
 		//If D-CDRR use reported consumed
-	    <?php
-	    	if($hide_generate==2){
-	    ?>
+	    <?php  if($hide_generate==2){?>
         var quantity_dispensed = parseInt(row_element.find(".aggregated_qty").attr("value"));
-        <?php
-    	}
-    	?>
+        <?php  	} 	?>
 		resupply = (quantity_dispensed * 3) - physical_count;
+        if ('<?php echo $code; ?>' == 'F-CDRR_units') {
+		resupply = (quantity_dispensed * 2) - physical_count;
+        }
 		resupply = parseInt(resupply);
-		if(isNaN(resupply))
-		{
+		if(isNaN(resupply)){ 
 			resupply = 0;
 		}
 		row_element.find('.label-warning').remove();
