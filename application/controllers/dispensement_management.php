@@ -858,8 +858,8 @@ AND  r.regimen_code LIKE '%oi%'
             $result = $query->result_array();
             $appointment_id = $result[0]['id'];
 
-            file_get_contents(base_url() . 'tools/api/getdispensing/' . $prescription);
-            file_get_contents(base_url() . 'tools/api/getappointment/' . $appointment_id);
+            //file_get_contents(base_url() . 'tools/api/getdispensing/' . $prescription);
+            //file_get_contents(base_url() . 'tools/api/getappointment/' . $appointment_id);
         }
 
         $this->session->set_userdata('msg_save_transaction', 'success');

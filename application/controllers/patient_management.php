@@ -469,7 +469,7 @@ class Patient_management extends MY_Controller {
 
         $data['facility_code'] = $this->session->userdata('facility');
                 $data['facility_code'] = $this->session->userdata('facility');
-        $sql = "SELECT * FROM Facilities where facilitycode=".$data['facility_code'];
+        $sql = "SELECT * FROM facilities where facilitycode=".$data['facility_code'];
         $query = $this->db->query($sql);
         $data['cs'] = $query->result_array()[0]['ccc_separator'];
 
