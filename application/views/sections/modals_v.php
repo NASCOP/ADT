@@ -30,17 +30,23 @@
 					<a href="javascript:;;" id="download-ADT-release"  onclick="download_ADT()">Download Now</a>
 				</div>
 			<?php } else {?>
-				ADT Version 3.4.1--new is already downloaded. to install please click here and wait
+				ADT Version 3.4.1--new is already downloaded. Click below button to update
 				</div><?php } ?>
+				<div id="update_ADT">
+					<a href="javascript:;;" id="download-ADT-release" class="btn btn-warning"  onclick="update_ADT()">Update</a>
+				</div>
+				
+				<div id="updating" style="display: none;"><img src="<?=base_url()?>assets/images/loading_spin.gif" style="width: 19px;"> Updating ADT Release</div>
+
 				<table>
 					<tr>
 						<td></td>
 					</tr>
 
 				</table>
-				
+
 			</div>
-			
+
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 				<input type="submit" class="btn btn-primary" value="Save changes" id="btn_save_profile_frm">
@@ -112,9 +118,9 @@
 
 
 								</table>
-								
+
 							</div>
-							
+
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 								<input type="submit" class="btn btn-primary" value="Save changes" id="btn_save_profile_frm">
@@ -150,9 +156,9 @@
 									</table>
 
 								</form>
-								
+
 							</div>
-							
+
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 								<input type="button" class="btn btn-primary btn_submit_pass" name="btn_submit_change_pass" id="btn_submit_change_pass" value="Save changes">
@@ -200,7 +206,7 @@
 	    		<div class="bar bar_dsm bar_pharmacy_dsm" style="width: 0%;">Pharmacy - Stock transactions</div> 
 	    	</div>
 	    </p>
-	    
+
 	    <a class="sync_complete" href="#"></a>
 	</div>  
 	<div class="modal-footer">
@@ -242,7 +248,7 @@
 		<h3 id="modalHeader">Confirm Delete</h3>
 	</div>
 	<div class="modal-body conf_maps_body">
-		
+
 	</div>
 	<div class="modal-footer">
 		<button class="btn order_btn" id="cFalse" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -335,6 +341,22 @@
 			$('#download_status').html(results);
 			$('#downloading').hide();
 			$('#download_status').show();
+			// alert('Download success'+results)
+			// $( this ).addClass( "done" );
+		});
+	}
+
+	function update_ADT(){
+		// $('#update_ADT').();
+		$('#updating').show();
+
+		$.ajax({
+			url: "<?=base_url()?>home_controller/updater/update",
+			context: document.body
+		}).done(function(results) {
+			$('#download_status').html(results);
+			$('#updating').hide();
+			// $('#download_status').show();
 			// alert('Download success'+results)
 			// $( this ).addClass( "done" );
 		});
