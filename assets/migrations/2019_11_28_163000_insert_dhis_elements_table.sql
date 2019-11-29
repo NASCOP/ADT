@@ -1,5 +1,5 @@
 truncate table dhis_elements//
-INSERT INTO dh (dhis_code, dhis_name, dhis_report, target_report, target_name, target_category, target_id) VALUES
+INSERT INTO dhis_elements (dhis_code, dhis_name, dhis_report, target_report, target_name, target_category, target_id) VALUES
 ('xSV7byIx6hP',	'MoH 730A Revision 2017 Adult preparations Abacavir (ABC) 300mg Tablets 60s',	'MOH 730A',	'D-CDRR',	'Abacavir (ABC) 300mg Tablets 60s',	'drug',	1),
 ('z56Zx3oNT6k',	'MoH 730A Revision 2017 Adult preparations Abacavir/Lamivudine (ABC/3TC) 600mg/300mg FDC Tablets 60s',	'MOH 730A',	'D-CDRR',	'Abacavir/Lamivudine (ABC/3TC) 600mg/300mg FDC Tablets 60s',	'drug',	2),
 ('JGtgXeYJrlj',	'MoH 730A Revision 2017 Adult preparations Atazanavir/Ritonavir (ATV/r) 300/100mg Tablets 30s',	'MOH 730A',	'D-CDRR',	'Atazanavir/Ritonavir (ATV/r) 300/100mg Tablets 30s',	'drug',	8),
