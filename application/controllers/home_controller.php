@@ -29,6 +29,7 @@ class Home_controller extends MY_Controller {
     }
 
     public function home() {
+        $this->load->library('updater');
         $rights = User_Right::getRights($this->session->userdata('access_level'));
         $menu_data = array();
         $menus = array();
@@ -57,6 +58,7 @@ class Home_controller extends MY_Controller {
         $ccc_stores = CCC_store_service_point::getAllActive();
         $this->session->set_userdata('ccc_store', $ccc_stores);
 
+        $data['download_status']=$this->updater->check_ADTRelease_downloaded();
         $data['title'] = "webADT | System Home";
         $data['content_view'] = "home_v";
         $data['banner_text'] = "Home";
@@ -171,6 +173,38 @@ class Home_controller extends MY_Controller {
         $data['hide_side_menu'] = 1;
         $data['user'] = $this->session->userdata['full_name'];
         $this->load->view("template", $data);
+    }
+    public function testlib(){
+        $this->load->library('updater');
+        $connection = ($this->updater->check_connection());
+
+        $rs = $this->updater->check_ADTrelease();
+        $rs = (json_decode($rs));
+
+        $adt_downloaded_status = ($this->updater->check_ADTRelease_downloaded());
+        var_dump($adt_downloaded_status);
+
+
+        // echo  '
+        // <script type="text/javascript" scr="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+
+        // $update_ADT = ($this->updater->update_ADT());
+
+
+    }
+    public function updater($process = ''){
+        $this->load->library('updater');
+        if($process =='download'){
+            $download = ($this->updater->download_ADTRelease());
+            echo 'ADT release Download Succesful';
+
+        }
+
+        // $rs = $this->updater->check_ADTrelease();
+        // $rs = (json_decode($rs));
+        // var_dump($rs);
+
+
     }
 
 }
