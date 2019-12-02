@@ -59,9 +59,11 @@ class Home_controller extends MY_Controller {
         $this->session->set_userdata('ccc_store', $ccc_stores);
 
         $data['download_status']=$this->updater->check_ADTRelease_downloaded();
+        $data['update_available'] = json_decode($this->updater->check_ADTrelease());
         $data['title'] = "webADT | System Home";
         $data['content_view'] = "home_v";
         $data['banner_text'] = "Home";
+
         $data['link'] = "home";
         $data['user'] = $this->session->userdata['full_name'];
         $this->load->view("template", $data);

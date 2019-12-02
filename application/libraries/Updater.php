@@ -105,7 +105,6 @@ class Updater {
 	}
 
 // function to inform remote site of new update activity
-// function to inform remote site of new update activity
 
 
 }
