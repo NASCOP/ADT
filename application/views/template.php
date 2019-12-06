@@ -214,6 +214,17 @@ if ($user_is_administrator) {
         }
         ?>      
         <style>
+            .blinking{
+                background: #ffc107a1 !important;
+                animation:blinkingText 0.8s infinite;
+                }
+                @keyframes blinkingText{
+                    0%{     color: #000;    }
+                    49%{    color: transparent; }
+                    50%{    color: transparent; }
+                    99%{    color:transparent;  }
+                    100%{   color: #000;    }
+                }
             .setting_table {
             font-size: 0.8em;
             }
@@ -529,7 +540,7 @@ if ($user_is_administrator) {
                             Government of Kenya &copy; <?php echo date('Y'); ?>.
                             All Rights Reserved . <strong>Web-ADT version <?= $this->config->item('adt_version'); ?></strong>
 <?php  if (str_replace('.', '', $update_available->release) + 0  > str_replace('.', '', $this->config->item('adt_version')) + 0  ){?>
-                            <a class="badge badge-warning" href="#adt_update_modal" data-toggle="modal">New Update available</div>
+                            <a class="badge badge-warning blinking" href="#adt_update_modal" data-toggle="modal">New Update available</div>
                             <?php } ?>
                         </div>  
                     </div>
