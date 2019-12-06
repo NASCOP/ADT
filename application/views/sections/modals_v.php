@@ -24,19 +24,19 @@
 
 			<p>A newer version of ADT is available. <br />You are currently using <?= $this->config->item('adt_version'); ?></p>
 			<?php  if (!$download_status){?>
-				<div id="downloading" style="display: none;"><img src="<?=base_url()?>assets/images/loading_spin.gif" style="width: 19px;"> Downloading ADT Release</div>
+				<div id="downloading" style="display: none;"><img src="<?=base_url()?>assets/images/loading_spin.gif" style="width: 19px;"> Downloading ADT Release.  This may take up to 3 minutes</div>
 
-				<div id='download_status'>Download status : <font  color="red">Not Downloaded</font>. 
+				<div id='download_status'><font  color="red">ADT Release Not Downloaded</font>. 
 					<a href="javascript:;;" id="download-ADT-release"  onclick="download_ADT()">Download Now</a>
 				</div>
 			<?php } else {?>
 				ADT Version 3.4.1--new is already downloaded. Click below button to update
 				</div><?php } ?>
-				<div id="update_ADT">
+				<div id="update_ADT" style="display: none;">
 					<a href="javascript:;;" id="download-ADT-release" class="btn btn-warning"  onclick="update_ADT()">Update</a>
 				</div>
 				
-				<div id="updating" style="display: none;"><img src="<?=base_url()?>assets/images/loading_spin.gif" style="width: 19px;"> Updating ADT Release</div>
+				<div id="updating" style="display: none;"><img src="<?=base_url()?>assets/images/loading_spin.gif" style="width: 19px;"> Updating ADT Release. May take a few minutes.</div>
 
 				<table>
 					<tr>
@@ -340,6 +340,8 @@
 			$('#download_status').html(results);
 			$('#downloading').hide();
 			$('#download_status').show();
+			$('#update_ADT').show();
+
 			// alert('Download success'+results)
 			// $( this ).addClass( "done" );
 		});
@@ -355,7 +357,7 @@
 		}).done(function(results) {
 			$('#download_status').html(results);
 			$('#updating').hide();
-			window.location('<?=base_url()?>user_management/logout/2')
+			window.location.replace('<?=base_url()?>user_management/logout/2')
 			// $('#download_status').show();
 			// alert('Download success'+results)
 			// $( this ).addClass( "done" );

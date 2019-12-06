@@ -198,12 +198,11 @@ class Home_controller extends MY_Controller {
         $this->load->library('updater');
         if($process == 'download'){
             $download = ($this->updater->download_ADTRelease());
-            echo 'ADT Release Download Succesful';
+            echo 'ADT Release Download Succesful <br />';
         }
 
         if($process == 'update'){
             $download = ($this->updater->update_ADT());
-            echo 'ADT Release Update succesful';
         }
 
     }

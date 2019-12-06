@@ -97,9 +97,9 @@ class Updater {
 			// extract it to the path we determined above
 			$zip->extractTo($path);
 			$zip->close();
-			echo "WOOT! $this->ADT_file extracted to $path";
+			echo "Success: $this->ADT_file extracted to $path";
 		} else {
-			echo "Doh! I couldn't open $this->ADT_file";
+			echo "Error! I couldn't open $this->ADT_file";
 		}
 
 	}
