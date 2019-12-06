@@ -77,7 +77,7 @@ class Notification_management extends MY_Controller {
 
 	public function update_notification() {
 		$changelog_link=base_url().'README.md';
-		echo "<li><a href='$changelog_link' target='_blank'><i class='icon-th'></i>ChangeLog</a></li>";
+		echo "<li><a href='$changelog_link' ><i class='icon-th'></i>New System Changes</a></li>";
 	}
 
 	public function error_notification($display_array=false) {

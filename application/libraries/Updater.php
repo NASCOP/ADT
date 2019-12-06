@@ -49,7 +49,7 @@ class Updater {
 		// if release already installed delete release file 
 
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, "http://178.128.158.18/ADT/updateinfo.txt");
+		curl_setopt($ch, CURLOPT_URL, "http://adt.nascop.org/updateinfo.txt");
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 

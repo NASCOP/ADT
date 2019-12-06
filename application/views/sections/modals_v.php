@@ -48,8 +48,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-				<input type="submit" class="btn btn-primary" value="Save changes" id="btn_save_profile_frm">
+
 			</div>
 		</form>
 	</div>
@@ -356,6 +355,7 @@
 		}).done(function(results) {
 			$('#download_status').html(results);
 			$('#updating').hide();
+			window.location('<?=base_url()?>user_management/logout/2')
 			// $('#download_status').show();
 			// alert('Download success'+results)
 			// $( this ).addClass( "done" );
