@@ -319,7 +319,7 @@ class Notification_management extends MY_Controller {
 			}
 			if ($overall_total > 1) {
 				$temp_link = $order_link = site_url('notification_management/load_error_view');
-				$temp = "<li><a href='" . $temp_link . "'><i class='icon-th'></i>Errors <div class='badge badge-important'>" . $overall_total . "</div></a><li>";
+				$temp = "<li><a href='" . $temp_link . "'><i class='icon-th'></i>Data Errors <div class='badge badge-important'>" . $overall_total . "</div></a><li>";
 			}
 			echo $temp;
 		}	
