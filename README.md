@@ -2,7 +2,41 @@ ADT
 ================================
 This is an ARV Dispensing Tool.
 
-Version 3.3 12/02/2018 (Latest)
+Version 3.4.1 09/12/2019 (Latest)
+==============================================
+- Added: When you select transfer in as a source of patient, it hides all clickable service types
+- Added: Added auto-update feature when there is a new version
+- Fixed: When selecting source of patient as TI , it was using ID number 3 instead of TI name
+- Fixed: If patient detail is missing when dispensing, there is an alert [It was omitting patient details]
+
+Version 3.4.0 21/06/2019
+==============================================
+- Added: Ability to directly upload reports to DHIS
+- Added: Added last_regimen column to patient master list
+- Added: Standardized CCC Number formats ART : {mfl}-{ccc} e.g 11094-00001  PREP: PREP-{mfl}-{ccc} e.g PREP-11094-00001  PEP: PEP-{mfl}-{ccc} e.g PEP-11094-00001  HEI: {mfl}-{year}-{ccc} e.g 11094-2019-00001
+- Added: Added New ADR button for ADRs Section in Pharmacovigilance
+- Added: Differentiated care button is now always checked if previously checked until you exit a patient from differentiated care
+- Added: Introduced differentiated care exit reasons
+- Added: ADT patient appointment now includes Sundays for those facilities that see patients on Sundays [On the Weekly Summary of Patient Appointments dashboard]
+- Added: Added input field for lost to followup days in settings/facility details
+- Added: Included procedure for bulk changing patient numbers
+- Added: Added gender to patients who have switched regimen
+- Added: For transfer in patients, once you select transfer in as source of patient, the facility name should be next and should populate the MFL code of the facility to the CCC number 
+- Added: Updated pediatric dosing chart to version 2017
+- Added: Added dose and duration to visiting patients/patients who visited for refill 
+- Added: Introduced a report under visiting patients that is just like the FMAPS but has age segregation for the various regimens. This report is called FMAP by age and gender
+- Added: Introduced a report under visiting patients called Multi-Monthly Dispensing [MMD]
+- Added: Autoback-up by default
+- Fixed: When generating the report for patient on a specific drug now uses current regimen instead of start regimen 
+- Fixed: Number of active patients receiving ART by regimen now uses current regimen on the patient table but the period prohibits backdating and forecasting
+- Fixed: Under patient details, it shows the current regimen throughout even to drugs that were dispensed before the regimen was switched. It now shows the transition in regimens and not just one regimen for all the drugs
+- Fixed: For ADR forms, it is now populating all previously dispensed drugs for that patient
+- Fixed: Editing patient record now reflects all the other tables
+- Fixed: Viral load is now exporting the whole list under reports, instead of exporting the first 10 entries
+- Fixed: Able to generate all patient drug consumption report under drug inventory
+
+
+Version 3.3 12/02/2018
 ==============================================
 - Added: From the admin side need to have ability to add new user category and define their user right
 - Added: New MOH 731 template
